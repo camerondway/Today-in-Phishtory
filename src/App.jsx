@@ -3,6 +3,7 @@ import "./App.css";
 import ShowAccordion from "./components/ShowAccordion";
 import { useEffect, useState } from "react";
 
+const phishToken = import.meta.env.VITE_PHISH_NET_API_KEY;
 function App() {
   const [showData, setShowData] = useState("");
   const [showSetLists, setShowSetLists] = useState([]);
@@ -16,7 +17,7 @@ function App() {
     try {
       const fetchData = async () => {
         const response = await fetch(
-          `https://api.phish.net/v5/shows/showmonth/${monthNumber}.json?order_by=showdate&apikey=44F997F19E918F591F20`
+          `https://api.phish.net/v5/shows/showmonth/${monthNumber}.json?order_by=showdate&apikey=${phishToken}`
         );
 
         if (!response.ok) {
@@ -39,7 +40,7 @@ function App() {
         const promises = data.map(async (item) => {
           const { showdate } = item;
           // https://api.phish.net/v5/setlists/showdate/1997-11-22.json?apikey=YOUR_API_KEY
-          const url = `https://api.phish.net/v5/setlists/showdate/${showdate}.json?apikey=44F997F19E918F591F20`;
+          const url = `https://api.phish.net/v5/setlists/showdate/${showdate}.json?apikey=${phishToken}`;
 
           // Fetch data for each showid
           const response = await fetch(url);
